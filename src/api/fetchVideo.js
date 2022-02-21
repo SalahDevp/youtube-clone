@@ -1,4 +1,4 @@
-const KEY = "AIzaSyAMXHuRyfpNMWzThm4I-2M8YrIyfajqVcg";
+const KEY = require("../config.json").KEY;
 
 export default async function fetchVideo(vidid) {
   const res = await fetch(

@@ -1,18 +1,23 @@
+import { FormatItalicOutlined } from "@mui/icons-material";
 import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import fetchVideo from "../api/fetchVideo";
-import VideoListTile from "../components/VideoListTile";
+import search from "../api/search";
+import VideoListItem from "../components/VideoListItem";
 
-const Video = ({ recommendedIds }) => {
+const Video = () => {
   const [embedHtml, setEmbedHtml] = useState("");
   const [title, setTitle] = useState("");
   const [views, setViews] = useState(0);
   const [published, setPublished] = useState("");
+  const [recommendedVids, setRecVids] = useState([]);
+  const [id, setId] = useState("");
 
   useEffect(() => {
     const queryString = window.location.search;
-    const id = queryString.slice(queryString.search(/\?id=/) + 4);
-    fetchVideo(id).then((video) => {
+    const searchId = queryString.slice(queryString.search(/\?id=/) + 4);
+    setId(searchId);
+    fetchVideo(searchId).then((video) => {
       setEmbedHtml(video.embedHtml);
       setTitle(video.title);
       setViews(video.views);
@@ -24,10 +29,13 @@ const Video = ({ recommendedIds }) => {
         })
       );
     });
-  }, []);
+    search(undefined, searchId).then((recommendedVids) => {
+      setRecVids(recommendedVids);
+    });
+  }, [id]);
   return (
-    <Grid container spacing={10}>
-      <Grid item>
+    <Grid container spacing={0}>
+      <Grid item xs={8}>
         <div className="video-cont" style={{ height: window.innerHeight - 90 }}>
           <div
             className="player-cont"
@@ -43,8 +51,20 @@ const Video = ({ recommendedIds }) => {
           </div>
         </div>
       </Grid>
-      <Grid item>
-        <VideoListTile />
+      <Grid item xs={4}>
+        <div className="rec-videos-list">
+          {recommendedVids.map((video, ind) => (
+            <VideoListItem
+              key={ind}
+              id={video.id}
+              title={video.title}
+              thumbnailUrl={video.thumbnail.default.url}
+              channelName={video.channelTitle}
+              publishDate={video.publishedAt}
+              setId={setId}
+            />
+          ))}
+        </div>
       </Grid>
     </Grid>
   );

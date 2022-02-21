@@ -1,4 +1,5 @@
-const KEY = "AIzaSyAMXHuRyfpNMWzThm4I-2M8YrIyfajqVcg";
+const KEY = require("../config.json").KEY;
+
 /**
  * if "query" is undefined the functions searches the videos related to the specified id
  */
@@ -7,10 +8,11 @@ export default async function search(query, relatedToId) {
   const res = await fetch(
     `https://youtube.googleapis.com/youtube/v3/search?${
       query ? `q=${query}` : `relatedToVideoId=${relatedToId}`
-    }&part=snippet&maxResults=${query ? "40" : "10"}&type=video&key=${KEY}`
+    }&part=snippet&maxResults=${query ? "40" : "5"}&type=video&key=${KEY}`
   );
   const resJson = await res.json();
   for (let item of resJson.items) {
+    if (!item.snippet) continue; //sometimes one of the videos isn't available
     const obj = {
       id: item.id.videoId,
       channelId: item.snippet.channelId,

@@ -3,6 +3,8 @@
 }
 body {
   background-color: #121212;
+  width: 97vw;
+  overflow: hidden;
 }
 
 .nav-item-div {
@@ -25,6 +27,8 @@ body {
   padding-left: 15px;
 }
 
-.list-tile-cont {
+.list-item-cont {
+  cursor: pointer;
+  margin-bottom: 10px;
   display: flex;
 }
