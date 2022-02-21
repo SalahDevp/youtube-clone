@@ -1,10 +1,20 @@
 import { Grid } from "@mui/material";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import VideoCard from "../components/VideoCard";
 import { VideosContext } from "../App";
+import search from "../api/search";
+import getPopularVideos from "../api/getPopularVideos";
+
 const Videos = () => {
-  const [vids] = useContext(VideosContext);
+  const [vids, setVids] = useContext(VideosContext);
+  useEffect(() => {
+    if (vids.length === 0) {
+      getPopularVideos().then((vids) => {
+        setVids(vids);
+      });
+    }
+  }, []);
   return (
     <Grid container spacing={2}>
       {vids.map((vid, ind) => (

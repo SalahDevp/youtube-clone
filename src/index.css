@@ -4,7 +4,7 @@
 body {
   background-color: #121212;
   width: 97vw;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .nav-item-div {

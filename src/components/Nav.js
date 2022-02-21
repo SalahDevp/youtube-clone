@@ -5,7 +5,7 @@ import {
   OutlinedInput,
   Avatar,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
@@ -30,9 +30,8 @@ const Nav = () => {
       <Toolbar sx={{ justifyContent: "space-between", padding: "0 16px" }}>
         <div className="nav-item-div" style={{ flex: 1 }}>
           <IconButton>
-            {" "}
             {/*menu button*/}
-            <MenuIcon />
+            <HomeIcon onClick={() => navigate("/")} />
           </IconButton>
         </div>
         <div className="nav-item-div" style={{ padding: "0 30px", flex: 3 }}>

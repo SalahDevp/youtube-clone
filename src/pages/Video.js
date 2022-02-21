@@ -1,4 +1,3 @@
-import { FormatItalicOutlined } from "@mui/icons-material";
 import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import fetchVideo from "../api/fetchVideo";
